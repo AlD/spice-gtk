@@ -19,10 +19,6 @@
 
 #include <glib.h>
 
-#ifdef HAVE_X11_XKBLIB_H
-#include <X11/XKBlib.h>
-#include <gdk/gdkx.h>
-#endif
 #ifdef GDK_WINDOWING_X11
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
@@ -138,7 +134,7 @@ static guint32 get_keyboard_lock_modifiers(void)
         modifiers |= SPICE_INPUTS_SCROLL_LOCK;
     }
 #else
-#ifdef HAVE_X11_XKBLIB_H
+#ifdef GDK_WINDOWING_X11
     Display *x_display = NULL;
     XKeyboardState keyboard_state;
 
@@ -172,7 +168,7 @@ static guint32 get_keyboard_lock_modifiers(void)
     }
 #else
     g_warning("get_keyboard_lock_modifiers not implemented");
-#endif // HAVE_X11_XKBLIB_H
+#endif // GDK_WINDOWING_X11
 #endif // GTK_CHECK_VERSION(3,18,0)
     return modifiers;
 }
